@@ -1,0 +1,58 @@
+BEGIN
+
+INPUT expression
+
+DISPLAY menu:
+    1. Infix to Postfix
+    2. Infix to Prefix
+    3. Postfix to Infix
+    4. Prefix to Infix
+
+INPUT choice
+
+IF choice == 1 THEN
+    result = InfixToPostfix(expression)
+
+ELSE IF choice == 2 THEN
+    reverse expression
+    swap '(' with ')'
+    temp = InfixToPostfix(expression)
+    result = reverse(temp)
+
+ELSE IF choice == 3 THEN
+    create empty stack
+
+    FOR each character ch in expression (left to right)
+        IF ch is operand THEN
+            push ch to stack
+        ELSE
+            op2 = pop()
+            op1 = pop()
+            newExp = "(" + op1 + ch + op2 + ")"
+            push newExp to stack
+    END FOR
+
+    result = pop()
+
+ELSE IF choice == 4 THEN
+    create empty stack
+
+    FOR each character ch in expression (right to left)
+        IF ch is operand THEN
+            push ch to stack
+        ELSE
+            op1 = pop()
+            op2 = pop()
+            newExp = "(" + op1 + ch + op2 + ")"
+            push newExp to stack
+    END FOR
+
+    result = pop()
+
+ELSE
+    DISPLAY "Invalid choice"
+END IF
+
+DISPLAY result
+
+END
